@@ -1,0 +1,11 @@
+TODO:
+
+1. NN model using bump activator functions 
+2. Choose new research idea for NN
+3. Language generator 
+4. Fermi paradox solution via negative pop growth index 
+5. nqueens and skyline problems 
+6. same tasks - in other languages 
+7. Telegram bot for discrete mathematics problems and questions
+8. Generating functions modeling 
+9. 
