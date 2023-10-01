@@ -26,7 +26,7 @@ def _calculate_cosine(v1, v2):
 input = [
     "the goal of this lecture is to explain the basics of free text processing",
     "the bag of words model is one such approach",
-    "text processing via bag of words"]
+    "bird bird bird hello world"]
 
 # split each text into array of words
 splits = []

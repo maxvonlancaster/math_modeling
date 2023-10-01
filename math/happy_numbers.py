@@ -34,7 +34,7 @@ def calculate_squeres(i):
     return a
 
 start = time.time()
-for i in range(1994, 2030):
+for i in range(1, 1000):
     res = calculate_squeres(i)
     print(f'{i} : {res} \n')
 

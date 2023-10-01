@@ -1,3 +1,4 @@
+# build plots of functions
 
 # importing the required modules
 import matplotlib.pyplot as plt
