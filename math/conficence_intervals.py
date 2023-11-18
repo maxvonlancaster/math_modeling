@@ -5,27 +5,25 @@ import csv
 import os
 import matplotlib.pyplot as plt
   
-
 ################################## PART 1
 
-# gfg_data = [1, 1, 1, 2, 2, 2, 3, 3, 3, 3,  
-#             3, 4, 4, 5, 5, 5, 6, 7, 8, 10] 
+gfg_data = [1, 1, 1, 2, 2, 2, 3, 3, 3, 3,  
+            3, 4, 4, 5, 5, 5, 6, 7, 8, 10] 
   
-# mean = np.mean(gfg_data)
-# standart_deviation = st.sem(gfg_data)
-# print(f'population mean: {mean}')
-# print(f'standart deviation: {standart_deviation}')
+mean = np.mean(gfg_data)
+standart_deviation = st.sem(gfg_data)
+print(f'population mean: {mean}')
+print(f'standart deviation: {standart_deviation}')
 
-# # create 90% confidence interval 
-# interval = st.t.interval(alpha=0.90, df=len(gfg_data), 
-#               loc=mean, 
-#               scale=standart_deviation) 
+# create 90% confidence interval 
+interval = st.t.interval(alpha=0.90, df=len(gfg_data), 
+              loc=mean, 
+              scale=standart_deviation) 
 
-# print(interval)
+print(interval)
 
 
 ################################### PART 2
-
 
 mu, sigma = 5, 2 # mean and standard deviation
 random_list = np.random.normal(mu, sigma, 100)
@@ -50,29 +48,28 @@ standart_deviation_random = st.sem(random_list)
 print(f'population mean: {mean_random}')
 print(f'standart deviation: {standart_deviation_random}')
 
-# plt.hist(random_list, 25)
-# plt.show()
+plt.hist(random_list, 25)
+plt.show()
 
 
 ################################### PART 3
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, 'ratings.csv')
+ratings = []
 
-# script_dir = os.path.dirname(os.path.abspath(__file__))
-# file_path = os.path.join(script_dir, 'ratings.csv')
-# ratings = []
+with open(file_path, 'r') as csv_file:
+    csv_reader = csv.reader(csv_file)
+    for row in csv_reader:
+        if 'Comedy' in row[9]:
+            ratings.append(int(row[1]))
 
-# with open(file_path, 'r') as csv_file:
-#     csv_reader = csv.reader(csv_file)
-#     for row in csv_reader:
-#         if 'Comedy' in row[9]:
-#             ratings.append(int(row[1]))
+print(ratings)
 
-# print(ratings)
+interval_ratings = st.t.interval(alpha=0.99, df=len(ratings) - 1,
+              loc=np.mean(ratings), 
+              scale=st.sem(ratings)) 
+print(interval_ratings)
 
-# interval_ratings = st.t.interval(alpha=0.99, df=len(ratings) - 1,
-#               loc=np.mean(ratings), 
-#               scale=st.sem(ratings)) 
-# print(interval_ratings)
-
-# plt.hist(ratings, 100)
-# plt.show()
+plt.hist(ratings, 100)
+plt.show()
