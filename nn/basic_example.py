@@ -128,3 +128,6 @@ all_y_trues = np.array([
 # Train our neural network!
 network = OurNeuralNetwork()
 network.train(data, all_y_trues)
+
+output = network.feedforward([-35, -10])
+print(output)
