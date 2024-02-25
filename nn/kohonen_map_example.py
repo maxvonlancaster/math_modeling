@@ -70,7 +70,7 @@ num_rows = 10
 num_cols = 10
 max_m_dsitance = 4
 max_learning_rate = 0.5
-max_steps = int(7.5*10e3)
+max_steps = int(1.1*10e3)
 # num_nurons = 5*np.sqrt(train_x.shape[0])
 # grid_size = ceil(np.sqrt(num_nurons))
 # print(grid_size)
