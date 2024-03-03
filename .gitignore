@@ -1,4 +1,16 @@
-*.csv
-*.xlsx
-*.png
-*.rar
+# *.csv
+# *.xlsx
+# *.png
+# *.rar
+
+/llm/valentyn/data/covidvaccine.csv
+/llm/valentyn/data/DataSet_Misinfo_FAKE.csv
+/llm/valentyn/data/DataSet_Misinfo_TRUE.csv
+/llm/valentyn/data/detection_fake.csv
+/llm/valentyn/data/detection_true.csv
+/llm/valentyn/data/EXTRA_RussianPropagandaSubset.csv
+/llm/valentyn/data/reddit_vm.csv
+/llm/valentyn/data/tweets.xlsx
+/llm/valentyn/data/vaccine_tweet_data.csv
+wc.png
+
