@@ -6,6 +6,17 @@ import math
 from numpy import dot
 from numpy.linalg import norm
 
+common_words = [
+    "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with",
+    "he", "as", "you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she",
+    "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if",
+    "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just",
+    "him", "know", "take", "people", "into", "year", "your", "good", "some", "could", "them", "see",
+    "other", "than", "then", "now", "look", "only", "come", "its", "over", "think", "also", "back",
+    "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because",
+    "any", "these", "give", "day", "most", "us"
+]
+
 def analyse_n_grams():
     return 0
 
@@ -45,20 +56,23 @@ def analyse_tfidf(rows, data_to_analyse):
 
 
 
-def analyse_tfidf_cosine(rows, data_to_analyse):
+def analyse_tfidf_cosine(rows, data_to_analyse, remove_common):
     words = [doc.lower().split() for doc in rows]
     # words_to_analyse = [doc.lower().split() for doc in data_to_analyse]
-    vocab = sorted(set(sum(words, [])))
+    vocab = set(sum(words, []))
+    if(remove_common):
+        vocab = vocab - set(common_words)
+    vocab_list = sorted(vocab)
     vocab_dict = {k:i for i,k in enumerate(vocab)}
 
     # term frequencies:
-    X_tf = np.zeros((len(data_to_analyse), len(vocab)), dtype=int)
+    X_tf = np.zeros((len(data_to_analyse), len(vocab_list)), dtype=int)
     for i,elem in enumerate(data_to_analyse):
-        for word in elem.split():
+        for word in elem.lower().split():
             if word in vocab_dict.keys():
                 X_tf[i, vocab_dict[word]] += 1
 
-    idf = np.zeros((len(vocab)), dtype=float)
+    idf = np.zeros((len(vocab_list)), dtype=float)
     for i in range(len(idf)):
         count = 0
         for j in range(len(X_tf)):
@@ -72,7 +86,7 @@ def analyse_tfidf_cosine(rows, data_to_analyse):
     # TFIDF
     X_tfidf = X_tf * idf
 
-    vector_one = np.ones((len(vocab)), dtype=float)
+    vector_one = np.ones((len(vocab_list)), dtype=float)
 
     cosinuses = np.zeros((len(data_to_analyse)), dtype=float)
 

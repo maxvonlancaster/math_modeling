@@ -15,7 +15,7 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
     rows = parse_file("example.csv", 1, 1000)
-    result = linguistic_analysis.analyse_tfidf_cosine(rows, [message.text, 'hello world'])
+    result = linguistic_analysis.analyse_tfidf_cosine(rows, [message.text, 'hello world'], True)
     bot.reply_to(message, result[0])
 
 bot.polling()
