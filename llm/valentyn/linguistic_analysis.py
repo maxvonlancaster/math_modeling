@@ -17,9 +17,6 @@ common_words = [
     "any", "these", "give", "day", "most", "us"
 ]
 
-def analyse_n_grams():
-    return 0
-
 def analyse_tfidf(rows, data_to_analyse):
     words = [doc.lower().split() for doc in rows]
     # words_to_analyse = [doc.lower().split() for doc in data_to_analyse]
@@ -87,6 +84,54 @@ def analyse_tfidf_cosine(rows, data_to_analyse, remove_common):
     X_tfidf = X_tf * idf
 
     vector_one = np.ones((len(vocab_list)), dtype=float)
+
+    cosinuses = np.zeros((len(data_to_analyse)), dtype=float)
+
+    for i in range(len(data_to_analyse)):
+        cosinuses[i] = dot(X_tfidf[i], vector_one) / (norm(X_tfidf[i]) * norm(vector_one))
+    
+    return cosinuses
+
+
+
+def analyse_n_grams(rows, data_to_analyse, n, remove_common):
+    n_grams = []
+    n_gram_data_to_analyse_list = []
+    characters_to_remove = ',. /'
+    for doc in rows:
+        split_text = doc.lower().translate(str.maketrans({'.': '', ',': ''})).split()
+        doc_n_gram = [' '.join(split_text[i:i+n]) for i in range(0,len(split_text),n)]
+        n_grams.extend(doc_n_gram)
+
+    for doc in data_to_analyse:
+        split_text = doc.lower().translate(str.maketrans({'.': '', ',': ''})).split()
+        doc_n_gram = [' '.join(split_text[i:i+n]) for i in range(0,len(split_text),n)]
+        n_gram_data_to_analyse_list.append(doc_n_gram)
+    
+    n_gram_dict = {k:i for i,k in enumerate(n_grams)}
+    
+    # term frequencies:
+    X_tf = np.zeros((len(data_to_analyse), len(n_grams)), dtype=int)
+    for i,elem in enumerate(n_gram_data_to_analyse_list):
+        for word in elem:
+            if word in n_gram_dict.keys():
+                X_tf[i, n_gram_dict[word]] += 1
+
+    idf = np.zeros((len(n_grams)), dtype=float)
+    for i in range(len(idf)):
+        count = 0
+        for j in range(len(X_tf)):
+            if X_tf[j, i] > 0:
+                count += 1
+        if count == 0:
+            idf[i] = 1
+        else:
+            idf[i] = math.log(len(X_tf)/ count)
+    
+    # TFIDF
+    X_tfidf = X_tf * idf
+
+    vector_one = np.ones((len(n_grams)), dtype=float)
 
     cosinuses = np.zeros((len(data_to_analyse)), dtype=float)
 
