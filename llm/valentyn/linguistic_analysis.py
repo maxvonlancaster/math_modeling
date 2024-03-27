@@ -136,6 +136,9 @@ def analyse_n_grams(rows, data_to_analyse, n, remove_common):
     cosinuses = np.zeros((len(data_to_analyse)), dtype=float)
 
     for i in range(len(data_to_analyse)):
-        cosinuses[i] = dot(X_tfidf[i], vector_one) / (norm(X_tfidf[i]) * norm(vector_one))
+        if norm(X_tfidf[i]) != 0:
+            cosinuses[i] = dot(X_tfidf[i], vector_one) / (norm(X_tfidf[i]) * norm(vector_one))
+        else: 
+            cosinuses[i] = 0
     
     return cosinuses
