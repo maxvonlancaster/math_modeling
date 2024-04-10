@@ -14,6 +14,9 @@
 /llm/valentyn/data/vaccine_tweet_data.csv
 /llm/valentyn/data/covid-19_vaccine_tweets_with_sentiment_fixed.csv
 /llm/valentyn/data/covid-19_vaccine_tweets_with_sentiment.csv
+/llm/valentyn/data/tweets_sentiment.csv
+/llm/valentyn/data/movie_sentiment.csv
+/llm/valentyn/data/dataset_sentiment.csv
 wc.png
 
 .env
