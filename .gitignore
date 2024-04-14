@@ -3,6 +3,7 @@
 # *.png
 # *.rar
 
+image_recognition/final.h5
 /llm/valentyn/data/covidvaccine.csv
 /llm/valentyn/data/DataSet_Misinfo_FAKE.csv
 /llm/valentyn/data/DataSet_Misinfo_TRUE.csv
