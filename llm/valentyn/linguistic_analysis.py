@@ -1,10 +1,12 @@
 from bs4 import BeautifulSoup
-from gensim.test.utils import lee_corpus_list
-from gensim.models import Word2Vec
+# from gensim.test.utils import lee_corpus_list
+# from gensim.models import Word2Vec
 import numpy as np
 import math
 from numpy import dot
 from numpy.linalg import norm
+from gensim import corpora, models, similarities
+
 
 common_words = [
     "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with",
@@ -142,3 +144,30 @@ def analyse_n_grams(rows, data_to_analyse, n, remove_common):
             cosinuses[i] = 0
     
     return cosinuses
+
+def gensim_tfidf(rows, text):
+    list_rows = [doc.lower().split() for doc in rows]
+    list1 = []
+    for item in list_rows:
+        list1 = list1 + item
+    list2 = text.lower().split()
+
+    # Create a dictionary from the lists of words
+    dictionary = corpora.Dictionary([list1, list2])
+
+    # Convert the lists of words into document-term matrices
+    corpus1 = [dictionary.doc2bow(list1)]
+    corpus2 = [dictionary.doc2bow(list2)]
+
+    # Build the TF-IDF model
+    tfidf = models.TfidfModel([corpus1, corpus2])
+
+    # Transform the document-term matrices using TF-IDF
+    corpus1_tfidf = tfidf[corpus1]
+    corpus2_tfidf = tfidf[corpus2]
+
+    # Compute the similarity between the two vectors using cosine similarity
+    index = similarities.MatrixSimilarity([corpus1_tfidf], num_features=len(dictionary))
+    similarity = index[corpus2_tfidf[0]]
+
+    return similarity

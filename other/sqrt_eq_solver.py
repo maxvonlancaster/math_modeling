@@ -4,18 +4,18 @@ from tkinter import messagebox
 
 wind = Tk()
 label_text = "         Очікування         "  
-x1 = 0 #корінь 1
-x2 = 0 #корінь 2
-a_ent = IntVar() #значення введене у entry_a
-b_ent = IntVar() #значення введене у entry_b
-c_ent = IntVar() #значення введене у entry_c
+x1 = 0 
+x2 = 0 
+a_ent = IntVar() 
+b_ent = IntVar() 
+c_ent = IntVar() 
 
 
 
-def solver(labe_feedback): #Функція яка обчислює дискримінант
-    a=int(a_ent.get()) #значення введене у entry_a
-    b=int(b_ent.get()) #значення введене у entry_b
-    c=int(c_ent.get()) #значення введене у entry_c
+def solver(labe_feedback): 
+    a=int(a_ent.get()) 
+    b=int(b_ent.get()) 
+    c=int(c_ent.get())
     if (a*a-4*b*c<0):
         label_text = "Від'ємний дискримінант"
     elif (a*a-4*b*c==0):
@@ -30,11 +30,11 @@ def solver(labe_feedback): #Функція яка обчислює дискри�
         label_text = "          Помилка           "
 
     labe_feedback.destroy()
-    labe_feedback = Label(wind, text = label_text) #Лейбл для відображення повідомленнь
+    labe_feedback = Label(wind, text = label_text) 
     labe_feedback.grid(row=3,column=0)
     return(label_text)
 
-labe_feedback = Label(wind, text = label_text) #Лейбл для відображення повідомленнь
+labe_feedback = Label(wind, text = label_text) 
 labe_feedback.grid(row=3,column=0)
 
 solve_butn = Button(wind, text="Розв'язати",command = lambda: solver(labe_feedback))
