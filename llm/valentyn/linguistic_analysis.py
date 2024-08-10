@@ -70,6 +70,8 @@ def analyse_tfidf_cosine(rows, data_to_analyse, remove_common):
         for word in elem.lower().split():
             if word in vocab_dict.keys():
                 X_tf[i, vocab_dict[word]] += 1
+    print('term frequencies: ')
+    print(X_tf)
 
     idf = np.zeros((len(vocab_list)), dtype=float)
     for i in range(len(idf)):
@@ -81,9 +83,13 @@ def analyse_tfidf_cosine(rows, data_to_analyse, remove_common):
             idf[i] = 1
         else:
             idf[i] = math.log(len(X_tf)/ count)
+    print('inverce document frequencies: ')
+    print(idf)
     
     # TFIDF
     X_tfidf = X_tf * idf
+    print('tfidf * idf: ')
+    print(X_tfidf)
 
     vector_one = np.ones((len(vocab_list)), dtype=float)
 
@@ -91,6 +97,8 @@ def analyse_tfidf_cosine(rows, data_to_analyse, remove_common):
 
     for i in range(len(data_to_analyse)):
         cosinuses[i] = dot(X_tfidf[i], vector_one) / (norm(X_tfidf[i]) * norm(vector_one))
+        if (math.isnan(cosinuses[i])):
+            cosinuses[i] = 0
     
     return cosinuses
 
